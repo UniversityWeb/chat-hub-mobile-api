@@ -1,5 +1,6 @@
 package com.universityweb.chathubmobileapi.user;
 
+import com.universityweb.chathubmobileapi.friend.FriendRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -41,6 +43,12 @@ public class User implements Serializable {
 
     @Column(name = "is_deleted")
     private boolean isDeleted;
+
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<FriendRequest> friendRequestSenders;
+
+    @OneToMany(mappedBy = "recipient", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<FriendRequest> friendRequestRecipients;
 
     public enum EGender {
         MALE, FEMALE, OTHER

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/v1/users")
 @Tag(name = "User")
 public class UserController {
 
@@ -26,7 +26,7 @@ public class UserController {
     private UserService userService;
 
     @Operation(
-            summary = "Add User",
+            summary = "Add user",
             description = "Add a new user by providing the necessary details in the request body.",
             responses = {
                     @ApiResponse(
@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @Operation(
-            summary = "Update User",
+            summary = "Update user",
             description = "Update an existing user by providing the necessary details in the request body.",
             responses = {
                     @ApiResponse(
@@ -54,7 +54,7 @@ public class UserController {
             }
     )
     @PutMapping("/update-user")
-    public ResponseEntity<String> updateOnlineStatus(@RequestBody @Valid UserDTO userDTO) {
+    public ResponseEntity<String> updateUser(@RequestBody @Valid UserDTO userDTO) {
         userService.update(userDTO);
         log.info(UserUtils.USER_UPDATED_SUCCESSFULLY);
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -155,7 +155,7 @@ public class UserController {
     )
     @GetMapping("/exists-by-email")
     public ResponseEntity<Boolean> existsByEmail(
-            @RequestBody
+            @RequestParam
             @Schema(description = "Email address of the user", example = "example@example.com")
             String email
     ) {
@@ -204,18 +204,19 @@ public class UserController {
             description = "Check if a user exists with the specified phone number.",
             responses = {
                     @ApiResponse(
-                            description = "User exists.",
+                            description = "Success.",
                             responseCode = "200"
                     )
             }
     )
-    @GetMapping("/get-user-by-uid")
+    @GetMapping("/get-user-by-uid/{uid}")
     public ResponseEntity<UserDTO> getUserDtoByUid(
-            @RequestParam
+            @PathVariable("uid")
             @Schema(description = "Uid of the user", example = "xhosjalgaskdfuyoawer")
             String uid
     ) {
         UserDTO userDTO = userService.getUserDTOByUid(uid);
+        log.info(UserUtils.USER_RETRIEVED_MSG, uid);
         return ResponseEntity.ok(userDTO);
     }
 
@@ -225,7 +226,7 @@ public class UserController {
             description = "Retrieve all users.",
             responses = {
                     @ApiResponse(
-                            description = "Success",
+                            description = "Success.",
                             responseCode = "200"
                     )
             }

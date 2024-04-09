@@ -10,5 +10,6 @@ public class UserUtils {
     public static final String USER_NOT_EXISTS_MSG = "User with email {} does not exist.";
     public static final String USER_WITH_PHONE_EXISTS_MSG = "User with phone number {} exists.";
     public static final String USER_WITH_PHONE_NOT_EXISTS_MSG = "User with phone number {} does not exist.";
+    public static final String USER_RETRIEVED_MSG = "User DTO retrieved successfully for UID: {}";
     public static final String RETRIEVED_ALL_USERS = "Retrieved all users. Count: {}";
 }
