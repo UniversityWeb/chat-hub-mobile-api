@@ -109,8 +109,8 @@ public class FriendRequestServiceImpl implements FriendRequestService {
     }
 
     private FriendRequestDTO attachMutualFriendsToFriendRequestDTO(FriendRequestDTO friendRequestDTO) {
-        String tempSenderId = friendRequestDTO.getSenderId();
-        String tempRecipientId = friendRequestDTO.getRecipientId();
+        String tempSenderId = friendRequestDTO.getSender().getUid();
+        String tempRecipientId = friendRequestDTO.getRecipient().getUid();
         int mutualFriends = getMutualFriends(tempSenderId, tempRecipientId);
         friendRequestDTO.setMutualFriends(mutualFriends);
         return friendRequestDTO;

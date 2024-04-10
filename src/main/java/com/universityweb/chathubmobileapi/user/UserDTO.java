@@ -1,5 +1,6 @@
 package com.universityweb.chathubmobileapi.user;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 public class UserDTO {
     @Schema(description = "Uid of the user", example = "xhosjalgaskdfuyoawer")
+    @JsonProperty("id")
     private String uid;
 
     @Schema(description = "Full name of the user", example = "John Doe")

@@ -16,12 +16,6 @@ public class FriendRequestDTO {
     @Schema(description = "ID of the friend request", example = "asdasdflfjasdjh")
     private String id;
 
-    @Schema(description = "ID of the sender", example = "xhosjalgaskdfuyoawer")
-    private String senderId;
-
-    @Schema(description = "ID of the recipient", example = "asdasdflfjasdjh")
-    private String recipientId;
-
     @Schema(description = "Status of the friend request", example = "PENDING")
     private FriendRequest.EStatus status;
 
@@ -31,11 +25,7 @@ public class FriendRequestDTO {
     @Schema(description = "Number of mutual friends", example = "3")
     private int mutualFriends;
 
-    @Schema(hidden = true)
-    @JsonIgnore
     private UserDTO sender;
 
-    @Schema(hidden = true)
-    @JsonIgnore
     private UserDTO recipient;
 }
