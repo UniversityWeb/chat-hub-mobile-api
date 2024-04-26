@@ -24,10 +24,9 @@ public class User implements Serializable {
     @Column(name = "full_name")
     private String fullName;
 
-    @Column(unique = true)
     private String email;
 
-    @Column(name = "phone_number", unique = true)
+    @Column(name = "phone_number")
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
