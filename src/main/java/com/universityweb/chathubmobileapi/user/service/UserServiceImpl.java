@@ -93,7 +93,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> getAll() {
-        List<User> users = userRepos.findAll();
+        List<User> users = getUsers();
         return userMapper.toDTOs(users);
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return userRepos.findAll();
     }
 }

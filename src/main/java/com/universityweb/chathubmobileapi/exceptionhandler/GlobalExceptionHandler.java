@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 @RestControllerAdvice
@@ -17,7 +18,18 @@ public class GlobalExceptionHandler {
 
     private static final Logger log = LogManager.getLogger(GlobalExceptionHandler.class);
 
+    @ExceptionHandler(SQLException.class)
+    @Order(1)
+    public ResponseEntity<ErrorResponse> handlePostNotFound(SQLException e) {
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR,
+                "An SQLException occurred", LocalDateTime.now());
+        log.error("SQLException: ", e);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(errorResponse);
+    }
+
     @ExceptionHandler(Exception.class)
+    @Order(1)
     public ResponseEntity<ErrorResponse> handlePostNotFound(Exception e) {
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR,
                 "An unexpected error occurred", LocalDateTime.now());

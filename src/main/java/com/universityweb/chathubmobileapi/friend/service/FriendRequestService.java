@@ -21,5 +21,5 @@ public interface FriendRequestService {
 
     List<FriendRequestDTO> getAcceptedFriendRequests(String userId);
 
-    List<FriendRequestDTO> getRecommendedFriends(String userId);
+    List<FriendRequestDTO> getRecommendedFriendRequests(String userId, int maxQuantity);
 }

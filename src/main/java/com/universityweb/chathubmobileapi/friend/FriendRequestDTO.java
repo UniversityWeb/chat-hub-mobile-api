@@ -1,6 +1,5 @@
 package com.universityweb.chathubmobileapi.friend;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.universityweb.chathubmobileapi.user.UserDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;

@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.Min;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -186,12 +187,17 @@ public class FriendRequestController {
             }
     )
     @GetMapping("/get-recommended-friend-requests/{userId}")
-    public ResponseEntity<List<FriendRequestDTO>> getRecommendedFriends(
+    public ResponseEntity<List<FriendRequestDTO>> getRecommendedFriendRequests(
             @PathVariable("userId")
             @Schema(description = "Uid of the user", example = "xhosjalgaskdfuyoawer")
-            String userId
+            String userId,
+
+            @RequestParam("maxQuantity")
+            @Schema(description = "The quantity of recommended friends", example = "10")
+            @Min(value = 10)
+            int maxQuantity
     ) {
-        List<FriendRequestDTO> friendRequestDTOs = friendRequestService.getRecommendedFriends(userId);
+        List<FriendRequestDTO> friendRequestDTOs = friendRequestService.getRecommendedFriendRequests(userId, maxQuantity);
         log.info(FriendRequestUtils.RETRIEVED_RECOMMENDED_FRIEND_REQUESTS_MSG, userId);
         return ResponseEntity.ok(friendRequestDTOs);
     }
