@@ -24,7 +24,6 @@ public class User implements Serializable {
     @Column(name = "full_name")
     private String fullName;
 
-    @Column(unique = true)
     private String email;
 
     @Column(name = "phone_number")
@@ -34,9 +33,6 @@ public class User implements Serializable {
     private EGender gender;
 
     private LocalDateTime birthday;
-
-    @Column(name = "image_url")
-    private String imageUrl;
 
     @Column(name = "is_online")
     private boolean isOnline;

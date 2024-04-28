@@ -2,11 +2,18 @@ package com.universityweb.chathubmobileapi.friend.service;
 
 import com.universityweb.chathubmobileapi.friend.*;
 import com.universityweb.chathubmobileapi.user.User;
+import com.universityweb.chathubmobileapi.user.UserDTO;
 import com.universityweb.chathubmobileapi.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -86,15 +93,41 @@ public class FriendRequestServiceImpl implements FriendRequestService {
     }
 
     @Override
-    public List<FriendRequestDTO> getRecommendedFriends(String userId) {
-        List<FriendRequest> friendRequests = friendRequestRepos.getRecommendedFriends(userId);
-        List<FriendRequestDTO> friendRequestDTOs = frMapper.toDTOs(friendRequests);
+    public List<FriendRequestDTO> getRecommendedFriendRequests(String curUserId, int maxQuantity) {
+        List<User> recommendedFriends = new ArrayList<>();
+        List<User> users = userService.getUsers();
+        users.removeIf(u -> u.getUid().equals(curUserId));
 
-        List<FriendRequestDTO> updatedFriendRequestDTOs = friendRequestDTOs.stream()
-                .map(this::attachMutualFriendsToFriendRequestDTO)
+        int curRecommendedQty = 0;
+        int userIndex = 0;
+        while (userIndex < users.size() && curRecommendedQty < maxQuantity) {
+            User user = users.get(userIndex);
+            String userId = user.getUid();
+            userIndex++;
+
+            if (isRecommendFriend(curUserId, userId)) {
+                recommendedFriends.add(user);
+                curRecommendedQty++;
+            }
+        }
+
+        UserDTO senderDTO = userService.getUserDTOByUid(curUserId);
+
+        return recommendedFriends.stream()
+                .map(u -> {
+                    String userId = u.getUid();
+                    int mutualFriends = getMutualFriends(curUserId, userId);
+                    UserDTO recipientDTO = userService.getUserDTOByUid(userId);
+
+                    return FriendRequestDTO.builder()
+                            .status(FriendRequest.EStatus.NOT_FOUND)
+                            .createdTime(null)
+                            .mutualFriends(mutualFriends)
+                            .sender(senderDTO)
+                            .recipient(recipientDTO)
+                            .build();
+                })
                 .collect(Collectors.toList());
-
-        return updatedFriendRequestDTOs;
     }
 
     private FriendRequestDTO save(FriendRequest friendRequest) {
@@ -141,5 +174,24 @@ public class FriendRequestServiceImpl implements FriendRequestService {
         String senderId = friendRequest.getSender().getUid();
         String recipientId = friendRequest.getRecipient().getUid();
         return senderId.equals(curUserId) ? recipientId : senderId;
+    }
+
+    private boolean isRecommendFriend(String curUserId, String anyUserId) {
+        Optional<FriendRequest> friendRequestOpt = getFriendRequest(curUserId, anyUserId);
+        return friendRequestOpt.isEmpty();
+    }
+
+    private Optional<FriendRequest> getFriendRequest(String curUserId, String anyUserId) {
+        Optional<FriendRequest> firstOpt = friendRequestRepos.getFriendRequest(curUserId, anyUserId);
+        if (firstOpt.isPresent()) {
+            return firstOpt;
+        }
+
+        Optional<FriendRequest> secondOpt = friendRequestRepos.getFriendRequest(anyUserId, curUserId);
+        if (secondOpt.isPresent()) {
+            return firstOpt;
+        }
+
+        return Optional.empty();
     }
 }

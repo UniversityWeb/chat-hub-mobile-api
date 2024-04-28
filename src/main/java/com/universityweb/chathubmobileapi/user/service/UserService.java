@@ -25,4 +25,5 @@ public interface UserService {
     User getUserByUid(String uid);
 
     List<UserDTO>  getAll();
+    List<User>  getUsers();
 }

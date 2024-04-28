@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface FriendRequestRepos extends JpaRepository<FriendRequest, String> {
@@ -19,7 +20,8 @@ public interface FriendRequestRepos extends JpaRepository<FriendRequest, String>
             "AND (fr.recipient.uid = :userId OR fr.sender.uid = :userId)")
     List<FriendRequest> getAcceptedFriendRequests(@Param("userId") String userId);
 
-    // TODO
-    @Query(value = "SELECT fr FROM FriendRequest fr WHERE fr.status = 'PENDING' AND fr.recipient.uid = :userId")
-    List<FriendRequest> getRecommendedFriends(@Param("userId") String userId);
+    @Query(value = "SELECT fr FROM FriendRequest fr " +
+            "WHERE fr.sender.uid = :senderId AND fr.recipient.uid = :recipientId")
+    Optional<FriendRequest> getFriendRequest(@Param("senderId") String senderId,
+                                            @Param("recipientId") String recipientId);
 }
