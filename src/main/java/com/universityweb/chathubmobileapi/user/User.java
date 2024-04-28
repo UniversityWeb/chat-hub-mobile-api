@@ -1,5 +1,6 @@
 package com.universityweb.chathubmobileapi.user;
 
+import com.universityweb.chathubmobileapi.chat.Message;
 import com.universityweb.chathubmobileapi.friend.FriendRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -45,6 +46,12 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "recipient", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<FriendRequest> friendRequestRecipients;
+
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Message> messageSenders;
+
+    @OneToMany(mappedBy = "recipient", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Message> messageRecipients;
 
     public enum EGender {
         MALE, FEMALE, OTHER
