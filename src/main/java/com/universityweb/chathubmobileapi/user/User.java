@@ -34,9 +34,6 @@ public class User implements Serializable {
 
     private LocalDateTime birthday;
 
-    @Column(name = "image_url")
-    private String imageUrl;
-
     @Column(name = "is_online")
     private boolean isOnline;
 

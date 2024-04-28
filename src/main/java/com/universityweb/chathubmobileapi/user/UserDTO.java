@@ -31,9 +31,6 @@ public class UserDTO {
     @Schema(description = "Birthday of the user", example = "1990-05-15T00:00:00")
     private LocalDateTime birthday;
 
-    @Schema(description = "URL of the user's profile image", example = "https://example.com/profile.jpg")
-    private String imageUrl;
-
     @Schema(description = "Indicates whether the user is currently online", example = "true")
     private boolean isOnline;
 }

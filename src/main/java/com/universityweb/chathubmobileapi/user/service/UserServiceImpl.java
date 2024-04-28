@@ -66,7 +66,6 @@ public class UserServiceImpl implements UserService {
         user.setPhoneNumber(userDTO.getPhoneNumber());
         user.setGender(userDTO.getGender());
         user.setBirthday(userDTO.getBirthday());
-        user.setImageUrl(userDTO.getImageUrl());
         user.setOnline(userDTO.isOnline());
 
         User saved = userRepos.save(user);
