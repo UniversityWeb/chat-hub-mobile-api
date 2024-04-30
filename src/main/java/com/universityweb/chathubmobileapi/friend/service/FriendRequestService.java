@@ -3,13 +3,14 @@ package com.universityweb.chathubmobileapi.friend.service;
 import com.universityweb.chathubmobileapi.friend.AddFriendRequest;
 import com.universityweb.chathubmobileapi.friend.FriendRequest;
 import com.universityweb.chathubmobileapi.friend.FriendRequestDTO;
+import com.universityweb.chathubmobileapi.friend.request.UpdateFriendStatusRequest;
 
 import java.util.List;
 
 public interface FriendRequestService {
     FriendRequestDTO addFriendRequest(AddFriendRequest addRequest);
 
-    FriendRequestDTO updateFriendRequestStatus(String friendRequestId, FriendRequest.EStatus status);
+    FriendRequestDTO updateFriendRequestStatus(UpdateFriendStatusRequest updateRequest);
 
     void delete(String friendRequestId);
 

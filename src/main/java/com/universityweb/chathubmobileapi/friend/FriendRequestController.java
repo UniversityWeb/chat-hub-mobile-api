@@ -1,5 +1,6 @@
 package com.universityweb.chathubmobileapi.friend;
 
+import com.universityweb.chathubmobileapi.friend.request.UpdateFriendStatusRequest;
 import com.universityweb.chathubmobileapi.friend.service.FriendRequestService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -55,15 +56,9 @@ public class FriendRequestController {
     )
     @PutMapping("/update-friend-request-status")
     public ResponseEntity<String> updateFriendRequestStatus(
-            @RequestBody
-            @Schema(description = "ID of the friend request", example = "asdasdflfjasdjh")
-            String friendRequestId,
+            @RequestBody UpdateFriendStatusRequest updateRequest) {
 
-            @RequestBody
-            @Schema(description = "Current status of the friend request", example = "ACCEPTED")
-            FriendRequest.EStatus status
-    ) {
-        friendRequestService.updateFriendRequestStatus(friendRequestId, status);
+        friendRequestService.updateFriendRequestStatus(updateRequest);
         log.info(FriendRequestUtils.FRIEND_REQUEST_STATUS_UPDATED_SUCCESSFULLY);
         return ResponseEntity.ok(FriendRequestUtils.FRIEND_REQUEST_STATUS_UPDATED_SUCCESSFULLY);
     }

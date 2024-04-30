@@ -1,6 +1,7 @@
 package com.universityweb.chathubmobileapi.friend.service;
 
 import com.universityweb.chathubmobileapi.friend.*;
+import com.universityweb.chathubmobileapi.friend.request.UpdateFriendStatusRequest;
 import com.universityweb.chathubmobileapi.user.User;
 import com.universityweb.chathubmobileapi.user.UserDTO;
 import com.universityweb.chathubmobileapi.user.service.UserService;
@@ -38,9 +39,9 @@ public class FriendRequestServiceImpl implements FriendRequestService {
     }
 
     @Override
-    public FriendRequestDTO updateFriendRequestStatus(String friendRequestId, FriendRequest.EStatus status) {
-        FriendRequest friendRequest = getFriendRequest(friendRequestId);
-        friendRequest.setStatus(status);
+    public FriendRequestDTO updateFriendRequestStatus(UpdateFriendStatusRequest updateRequest) {
+        FriendRequest friendRequest = getFriendRequest(updateRequest.friendRequestId());
+        friendRequest.setStatus(updateRequest.status());
 
         return save(friendRequest);
     }
