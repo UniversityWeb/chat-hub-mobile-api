@@ -157,10 +157,10 @@ public class FriendRequestServiceImpl implements FriendRequestService {
                 .getAcceptedFriendRequests(secondUserId);
 
         int count = 0;
-        for (int i = 0; i < friendsOfFirstUser.size(); i++) {
+        for (int i = 0; i < friendsOfFirstUser.size() - 1; i++) {
             FriendRequest friendOfFirstUser = friendsOfFirstUser.get(i);
             String firstFriendId = getFriendIdFromRequest(friendOfFirstUser, firstUserId);
-            for (int j = 0; j < friendsOfSecondUser.size(); j++) {
+            for (int j = 0; j < friendsOfSecondUser.size() - 1; j++) {
                 FriendRequest friendOfSecondUser = friendsOfSecondUser.get(i);
                 String secondFriendId = getFriendIdFromRequest(friendOfSecondUser, secondUserId);
                 if (firstFriendId.equals(secondFriendId)) {
