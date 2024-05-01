@@ -146,10 +146,6 @@ public class UserController {
                     @ApiResponse(
                             description = "User exists.",
                             responseCode = "200"
-                    ),
-                    @ApiResponse(
-                            description = "User does not exist.",
-                            responseCode = "404"
                     )
             }
     )
@@ -162,11 +158,10 @@ public class UserController {
         boolean exists = userService.existsByEmail(email);
         if (exists) {
             log.info(UserUtils.USER_EXISTS_MSG, email);
-            return ResponseEntity.ok(true);
         } else {
             log.info(UserUtils.USER_NOT_EXISTS_MSG, email);
-            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.ok(exists);
     }
 
     @Operation(
@@ -176,10 +171,6 @@ public class UserController {
                     @ApiResponse(
                             description = "User exists.",
                             responseCode = "200"
-                    ),
-                    @ApiResponse(
-                            description = "User does not exist.",
-                            responseCode = "404"
                     )
             }
     )
@@ -192,11 +183,10 @@ public class UserController {
         boolean exists = userService.existsByPhoneNumber(phoneNumber);
         if (exists) {
             log.info(UserUtils.USER_WITH_PHONE_EXISTS_MSG, phoneNumber);
-            return ResponseEntity.ok(true);
         } else {
             log.info(UserUtils.USER_WITH_PHONE_NOT_EXISTS_MSG, phoneNumber);
-            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.ok(exists);
     }
 
     @Operation(
