@@ -7,5 +7,5 @@ import java.util.List;
 public interface MessageService {
     <T> List<T> findByUserUid(String userUid, Class<T> returnType);
 
-    String sendMessage(MessageDTO messageDTO);
+    MessageDTO sendMessage(MessageDTO messageDTO);
 }

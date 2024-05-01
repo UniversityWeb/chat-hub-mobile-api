@@ -47,7 +47,7 @@ public class MessageServiceImpl implements MessageService{
     }
 
     @Override
-    public String sendMessage(MessageDTO messageDTO) {
+    public MessageDTO sendMessage(MessageDTO messageDTO) {
         try {
             Message message = messageMapper.toEntity(messageDTO);
 
@@ -58,10 +58,10 @@ public class MessageServiceImpl implements MessageService{
             messageRepos.save(message);
 
             log.info(MessageUtils.MESSAGE_ADDED_SUCCESSFULLY);
-            return MessageUtils.MESSAGE_ADDED_SUCCESSFULLY;
+            return messageDTO;
         } catch (Exception e) {
             log.info(MessageUtils.MESSAGE_ADDED_FAILED + e.getMessage());
-            return MessageUtils.MESSAGE_ADDED_FAILED + e.getMessage();
+            return null;
         }
     }
 }

@@ -30,8 +30,8 @@ public class MessageController {
     }
 
     @PostMapping("/send-message")
-    public ResponseEntity<String> sendMessage(@RequestBody @Valid MessageDTO messageDTO) {
-        String response = messageService.sendMessage(messageDTO);
+    public ResponseEntity<MessageDTO> sendMessage(@RequestBody @Valid MessageDTO messageDTO) {
+        MessageDTO response = messageService.sendMessage(messageDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(response);
     }
