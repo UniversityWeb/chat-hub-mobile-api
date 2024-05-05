@@ -1,6 +1,7 @@
 package com.universityweb.chathubmobileapi.chat.service;
 
 import com.universityweb.chathubmobileapi.chat.*;
+import com.universityweb.chathubmobileapi.chat.exception.MessageAddedFailedException;
 import com.universityweb.chathubmobileapi.user.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -61,7 +62,7 @@ public class MessageServiceImpl implements MessageService{
             return messageDTO;
         } catch (Exception e) {
             log.info(MessageUtils.MESSAGE_ADDED_FAILED + e.getMessage());
-            return null;
+            throw new MessageAddedFailedException(MessageUtils.MESSAGE_ADDED_FAILED + e.getMessage());
         }
     }
 }

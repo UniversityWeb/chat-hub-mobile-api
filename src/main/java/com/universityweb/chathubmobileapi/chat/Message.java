@@ -31,7 +31,7 @@ public class Message implements Serializable {
     private EType type;
 
     @Enumerated(EnumType.STRING)
-    private EVisibility visibility;
+    private EVisible visibility;
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private User sender;
@@ -43,7 +43,7 @@ public class Message implements Serializable {
         TEXT, IMAGE, VIDEO;
     }
 
-    public enum EVisibility {
+    public enum EVisible {
         ACTIVE, DELETE, HIDDEN;
     }
 }

@@ -21,7 +21,7 @@ public class MessageDTO {
 
     private Message.EType type;
 
-    private Message.EVisibility visibility;
+    private Message.EVisible visibility;
 
     @NotNull
     private String senderId;
