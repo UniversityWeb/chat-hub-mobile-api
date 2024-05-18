@@ -1,6 +1,7 @@
 package com.universityweb.chathubmobileapi.conversation;
 
 import com.universityweb.chathubmobileapi.conversation.service.ConversationService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +23,9 @@ public class ConversationController {
     }
 
     @PostMapping("/add-new-conversation")
-    public ResponseEntity<ConversationDTO> addNewConversation(@RequestBody ConversationDTO conversation){
-        ConversationDTO reponse = conversationService.addNew(conversation);
+    public ResponseEntity<ConversationDTO> addNewConversation(@RequestBody @Valid ConversationDTO conversation){
+        ConversationDTO response = conversationService.addNew(conversation);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(reponse);
+                .body(response);
     }
 }

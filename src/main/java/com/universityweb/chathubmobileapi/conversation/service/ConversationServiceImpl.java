@@ -1,10 +1,6 @@
 package com.universityweb.chathubmobileapi.conversation.service;
 
 import com.universityweb.chathubmobileapi.conversation.*;
-import com.universityweb.chathubmobileapi.friend.FriendRequest;
-import com.universityweb.chathubmobileapi.user.User;
-import com.universityweb.chathubmobileapi.user.UserDTO;
-import com.universityweb.chathubmobileapi.user.UserRepos;
 import com.universityweb.chathubmobileapi.user.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -49,9 +45,10 @@ public class ConversationServiceImpl implements ConversationService{
 
     @Override
     public List<ConversationDTO> findByUserId(String userId) {
-        List<Conversation> conversations = Collections.emptyList();
-        conversations.add(repos.findByUserId(userId));
-
+        List<Conversation> conversations = repos.findByUserId(userId);
+        if (conversations == null || conversations.isEmpty()) {
+            return Collections.emptyList();
+        }
         return mapper.toDTOs(conversations);
     }
 }
