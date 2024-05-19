@@ -7,5 +7,5 @@ import java.util.List;
 public interface ConversationService {
     ConversationDTO addNew(ConversationDTO conversationDTO);
     List<ConversationDTO> findByUserId(String userId);
-
+    ConversationDTO findBySenderAndRecipientId(String senderId, String recipientId);
 }

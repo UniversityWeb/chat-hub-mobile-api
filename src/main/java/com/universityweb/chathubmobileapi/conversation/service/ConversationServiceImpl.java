@@ -51,4 +51,10 @@ public class ConversationServiceImpl implements ConversationService{
         }
         return mapper.toDTOs(conversations);
     }
+
+    @Override
+    public ConversationDTO findBySenderAndRecipientId(String senderId, String recipientId) {
+        Conversation conversation = repos.findBySenderAndRecipientId(senderId, recipientId);
+        return mapper.toDTO(conversation);
+    }
 }

@@ -22,6 +22,12 @@ public class ConversationController {
         return ResponseEntity.ok(conversations);
     }
 
+    @PostMapping("/get-conversation")
+    public  ResponseEntity<ConversationDTO> getConversation(String senderId, String recipientId){
+        ConversationDTO conversation = conversationService.findBySenderAndRecipientId(senderId, recipientId);
+        return  ResponseEntity.ok(conversation);
+    }
+
     @PostMapping("/add-new-conversation")
     public ResponseEntity<ConversationDTO> addNewConversation(@RequestBody @Valid ConversationDTO conversation){
         ConversationDTO response = conversationService.addNew(conversation);
