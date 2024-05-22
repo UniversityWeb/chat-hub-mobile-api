@@ -70,4 +70,13 @@ public class ConversationServiceImpl implements ConversationService{
             return null;
         }
     }
+
+    @Override
+    public List<ConversationDTO> findAll() {
+        List<Conversation> conversations = repos.findAll();
+        if (conversations.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return mapper.toDTOs(conversations);
+    }
 }

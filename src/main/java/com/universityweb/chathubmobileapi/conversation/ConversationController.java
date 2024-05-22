@@ -48,4 +48,11 @@ public class ConversationController {
         ConversationDTO response = conversationService.update(conversation);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
+    @GetMapping("/get-all-conversations")
+    public ResponseEntity<List<ConversationDTO>> fetchConversations() {
+        List<ConversationDTO> conversations = conversationService.findAll();
+        return ResponseEntity.ok(conversations);
+    }
+
 }

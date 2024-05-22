@@ -9,4 +9,6 @@ public interface ConversationService {
     List<ConversationDTO> findByUserId(String userId);
     ConversationDTO findBySenderAndRecipientId(String senderId, String recipientId);
     ConversationDTO update(ConversationDTO conversationDTO);
+
+    List<ConversationDTO> findAll();
 }
