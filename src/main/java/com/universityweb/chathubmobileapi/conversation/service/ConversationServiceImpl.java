@@ -52,7 +52,7 @@ public class ConversationServiceImpl implements ConversationService{
     @Override
     public ConversationDTO update(ConversationDTO conversationDTO) {
         Conversation conversation = repos.findBySenderAndRecipientId(conversationDTO.getSenderId(), conversationDTO.getRecipientId());
-        conversation.setLastMessage(conversation.getLastMessage());
+        conversation.setLastMessage(conversationDTO.getLastMessage());
         conversation.setSendingTime(conversationDTO.getSendingTime());
         try {
             return mapper.toDTO(repos.save(conversation));
