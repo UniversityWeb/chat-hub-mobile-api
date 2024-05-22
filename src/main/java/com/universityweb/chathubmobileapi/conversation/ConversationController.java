@@ -2,7 +2,7 @@ package com.universityweb.chathubmobileapi.conversation;
 
 import com.universityweb.chathubmobileapi.chat.MessageDTO;
 import com.universityweb.chathubmobileapi.conversation.service.ConversationService;
-import com.universityweb.chathubmobileapi.user.service.UserService;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,11 +17,10 @@ public class ConversationController {
 
     @Autowired
     private ConversationService conversationService;
-    @Autowired
-    private UserService userService;
-
-    @GetMapping("/fetch-conversations")
-    public ResponseEntity<List<ConversationDTO>> fetchConversations(@RequestParam String userId) {
+    @GetMapping("/fetch-conversations/{userId}")
+    public ResponseEntity<List<ConversationDTO>> fetchConversations(@PathVariable("userId")
+                                                                        @Schema(description = "Uid of the user", example = "xhosjalgaskdfuyoawer")
+                                                                        String userId) {
         List<ConversationDTO> conversations = conversationService.findByUserId(userId);
         return ResponseEntity.ok(conversations);
     }
