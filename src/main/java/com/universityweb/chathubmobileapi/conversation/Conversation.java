@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "conversations")
@@ -28,6 +28,9 @@ public class Conversation {
     @JoinColumn(name = "recipient_id", nullable = false)
     private User recipient;
 
+    @Column(name = "last_message")
+    private String lastMessage;
+
     @Column(name = "sending_time")
-    private Date sendingTime;
+    private LocalDateTime sendingTime;
 }

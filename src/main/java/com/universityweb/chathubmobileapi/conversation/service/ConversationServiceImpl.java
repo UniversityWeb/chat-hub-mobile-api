@@ -57,4 +57,17 @@ public class ConversationServiceImpl implements ConversationService{
         Conversation conversation = repos.findBySenderAndRecipientId(senderId, recipientId);
         return mapper.toDTO(conversation);
     }
+
+    @Override
+    public ConversationDTO update(ConversationDTO conversationDTO) {
+        Conversation conversation = repos.findBySenderAndRecipientId(conversationDTO.getSenderId(), conversationDTO.getRecipientId());
+        conversation.setLastMessage(conversation.getLastMessage());
+        conversation.setSendingTime(conversationDTO.getSendingTime());
+        try {
+            return mapper.toDTO(repos.save(conversation));
+        } catch (Exception e){
+            log.error(e.getMessage());
+            return null;
+        }
+    }
 }
