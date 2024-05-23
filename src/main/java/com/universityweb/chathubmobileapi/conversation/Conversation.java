@@ -1,6 +1,7 @@
 package com.universityweb.chathubmobileapi.conversation;
 
 import com.universityweb.chathubmobileapi.user.User;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,6 +32,8 @@ public class Conversation {
     @Column(name = "last_message")
     private String lastMessage;
 
+
+    @Schema(description = "SendingTime of the user", example = "1990-05-15T00:00:00")
     @Column(name = "sending_time")
     private LocalDateTime sendingTime;
 }
