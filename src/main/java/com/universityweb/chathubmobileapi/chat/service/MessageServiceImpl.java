@@ -16,7 +16,6 @@ public class MessageServiceImpl implements MessageService{
     private static final Logger log = LogManager.getLogger(MessageServiceImpl.class);
 
     private final UserService userService;
-
     private final MessageRepos messageRepos;
     private final MessageMapper messageMapper;
 
