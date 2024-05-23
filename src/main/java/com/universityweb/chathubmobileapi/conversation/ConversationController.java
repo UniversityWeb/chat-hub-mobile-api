@@ -32,7 +32,8 @@ public class ConversationController {
     }
 
     @PostMapping("/add-new-conversation")
-    public ResponseEntity<ConversationDTO> addNewConversation(@RequestBody @Valid ConversationDTO conversation) {
+    public ResponseEntity<ConversationDTO> addNewConversation(@RequestBody @Valid MessageDTO message) {
+        ConversationDTO conversation = new ConversationDTO(message.getSenderId(), message.getRecipientId(), message.getSendingTime(), message.getMessage());
         ConversationDTO response = conversationService.addNew(conversation);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

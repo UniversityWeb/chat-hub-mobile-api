@@ -19,6 +19,12 @@ public class ConversationDTO {
     @NotNull
     private String recipientId;
     private LocalDateTime sendingTime;
-    private String conversationName;
     private String lastMessage;
+
+    public ConversationDTO(String senderId, String recipientId, LocalDateTime sendingTime, String lastMessage) {
+        this.senderId = senderId;
+        this.recipientId = recipientId;
+        this.sendingTime = sendingTime;
+        this.lastMessage = lastMessage;
+    }
 }
