@@ -13,12 +13,12 @@ import java.time.LocalDateTime;
 @Builder
 @Data
 public class ConversationDTO {
+    private String id;
     @NotNull
     private String senderId;
     @NotNull
     private String recipientId;
     private LocalDateTime sendingTime;
-    private String imgUrl;
     private String conversationName;
     private String lastMessage;
 }
