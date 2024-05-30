@@ -22,10 +22,20 @@ public class ConversationServiceImpl implements ConversationService{
     @Autowired
     private UserService userService;
 
+    /**
+     * Thêm mới cuộc hội thoại
+     *
+     * @param conversationDTO   :   Cuộc hội thoại muốn thêm mới
+     * @return                  :   Cuộc hội thoại vừa thêm mới.
+     *
+     * Tác giả: Nguyễn hà Quỳnh Giao.
+     */
     @Override
     public ConversationDTO addNew(ConversationDTO conversationDTO) {
+            // Chuyển sang Entity
             Conversation conversation = mapper.toEntity(conversationDTO);
 
+            // Thiết lập giá trị
             conversation.setSender(userService.getUserByUid(conversationDTO.getSenderId()));
             conversation.setRecipient(userService.getUserByUid(conversationDTO.getRecipientId()));
             conversation.setSendingTime(conversationDTO.getSendingTime());
@@ -36,18 +46,41 @@ public class ConversationServiceImpl implements ConversationService{
             return mapper.toDTO(saved);
     }
 
+    /**
+     * Tìm kiếm danh sách hội thoại theo mã người dùng.
+     *
+     * @param userId    :   Mã người dùng muốn lấy danh sách.
+     * @return          :   Danh sách hội thoại.
+     *
+     * Tác giả: Nguyễn hà Quỳnh Giao.
+     */
     @Override
     public List<ConversationDTO> findByUserId(String userId) {
         List<Conversation> conversations = repos.findByUserId(userId);
         return mapper.toDTOs(conversations);
     }
-
+    /**
+     * Tìm kiếm cuộc hội thoại theo mã nguời tham gia
+     *
+     * @param senderId      :   Mã người dùng thứ nhất
+     * @param recipientId   :   Mã người dùng thứ hai.
+     * @return              :   Cuộc hội thoại
+     *
+     * Tác giả: Nguyễn hà Quỳnh Giao.
+     */
     @Override
     public ConversationDTO findBySenderAndRecipientId(String senderId, String recipientId) {
         Conversation conversation = repos.findBySenderAndRecipientId(senderId, recipientId);
         return mapper.toDTO(conversation);
     }
-
+    /**
+     * Cập nhật cuộc hội thoại.
+     *
+     * @param conversationDTO       :   Cuộc hội thoại muốn cập nhật.
+     * @return                      :   Cuộc hội thoại
+     *
+     * Tác giả: Nguyễn hà Quỳnh Giao.
+     */
     @Override
     public ConversationDTO update(ConversationDTO conversationDTO) {
         Conversation conversation = repos.findBySenderAndRecipientId(conversationDTO.getSenderId(), conversationDTO.getRecipientId());
