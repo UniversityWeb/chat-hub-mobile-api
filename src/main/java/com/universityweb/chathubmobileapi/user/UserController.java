@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -62,58 +63,6 @@ public class UserController {
     }
 
     @Operation(
-            summary = "Update online status of an user",
-            description = "Update online status of an existing user by providing the Uid and an online status.",
-            responses = {
-                    @ApiResponse(
-                            description = "Online status updated successfully.",
-                            responseCode = "200"
-                    )
-            }
-    )
-    @PutMapping("/update-online-status")
-    public ResponseEntity<String> updateOnlineStatus(
-            @RequestBody
-            @Schema(description = "Uid of the user", example = "xhosjalgaskdfuyoawer")
-            String uid,
-
-            @RequestBody
-            @Schema(description = "Current online status of the user", example = "false")
-            boolean isOnline
-    ) {
-        userService.updateOnlineStatus(uid, isOnline);
-        log.info(UserUtils.ONLINE_STATUS_UPDATED_SUCCESSFULLY);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(UserUtils.ONLINE_STATUS_UPDATED_SUCCESSFULLY);
-    }
-
-    @Operation(
-            summary = "Update email of an user",
-            description = "Update email of an existing user by providing the Uid and an email.",
-            responses = {
-                    @ApiResponse(
-                            description = "Email updated successfully.",
-                            responseCode = "200"
-                    )
-            }
-    )
-    @PutMapping("/update-email")
-    public ResponseEntity<String> updateEmail(
-            @RequestBody
-            @Schema(description = "Uid of the user", example = "xhosjalgaskdfuyoawer")
-            String uid,
-
-            @RequestBody
-            @Schema(description = "Email of the user", example = "vanne@gmail.com")
-            String email
-    ) {
-        userService.updateEmail(uid, email);
-        log.info(UserUtils.EMAIL_UPDATED_SUCCESSFULLY);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(UserUtils.EMAIL_UPDATED_SUCCESSFULLY);
-    }
-
-    @Operation(
             summary = "Update phone number of an user",
             description = "Update phone number of an existing user by providing the Uid and a phone number.",
             responses = {
@@ -125,11 +74,11 @@ public class UserController {
     )
     @PutMapping("/update-phone-number")
     public ResponseEntity<String> updatePhoneNumber(
-            @RequestBody
+            @RequestParam
             @Schema(description = "Uid of the user", example = "xhosjalgaskdfuyoawer")
             String uid,
 
-            @RequestBody
+            @RequestParam
             @Schema(description = "Phone number of the user", example = "+84971823491")
             String phoneNumber
     ) {
