@@ -25,7 +25,14 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+    /**
+     * Endpoint thêm người dùng mới.
+     *
+     * @param userDTO   :   Người dùng mới muốn thêm.
+     * @return          :   Người dùng sau khi thêm thành công.
+     *
+     * Tác giả: Trần văn An.
+     */
     @Operation(
             summary = "Add user",
             description = "Add a new user by providing the necessary details in the request body.",
@@ -44,6 +51,14 @@ public class UserController {
                 .body(UserUtils.USER_ADDED_SUCCESSFULLY);
     }
 
+    /**
+     * Endpoint cập nhật người dùng.
+     *
+     * @param userDTO   :   người dùng muốn cập nhật.
+     * @return          :   người dùng sau khi cập nhật.
+     *
+     * Tác giả: Trần Văn An.
+     */
     @Operation(
             summary = "Update user",
             description = "Update an existing user by providing the necessary details in the request body.",
@@ -62,6 +77,15 @@ public class UserController {
                 .body(UserUtils.USER_UPDATED_SUCCESSFULLY);
     }
 
+    /**
+     * Endpoint cập nhật số điện thoại người dùng bằng id người dùng.
+     *
+     * @param uid           :   Id của người dùng muốn cập nhật.
+     * @param phoneNumber   :   Số điện thoại muốn cập nhật.
+     * @return              :   Thông báo kết quả thực hiện.
+     *
+     * Tác giả: Trần Văn An.
+     */
     @Operation(
             summary = "Update phone number of an user",
             description = "Update phone number of an existing user by providing the Uid and a phone number.",
@@ -88,6 +112,14 @@ public class UserController {
                 .body(UserUtils.PHONE_NUMBER_UPDATED_SUCCESSFULLY);
     }
 
+    /**
+     * Endpoint kiểm tra mail sự tồn tại của người dùng bằng email.
+     *
+     * @param email     :   Email muốn kiểm tra.
+     * @return          :   Trả về phản hồi với kết quả tìm kiếm.
+     *
+     * Tác giả: Trần Văn An.
+     */
     @Operation(
             summary = "Check if user exists by email",
             description = "Check if a user exists with the specified email address.",
@@ -113,6 +145,14 @@ public class UserController {
         return ResponseEntity.ok(exists);
     }
 
+    /**
+     * Endpoint kiểm tra sự tồn tại của người dùng bằng số điện thoại.
+     *
+     * @param phoneNumber   :   Số điện thoại muốn kiểm tra.
+     * @return              :   Trả về phàn hồi với kết quả tìm kiếm.
+     *
+     * Tác giả: Trần Văn An.
+     */
     @Operation(
             summary = "Check if user exists by phone number",
             description = "Check if a user exists with the specified phone number.",
@@ -138,6 +178,14 @@ public class UserController {
         return ResponseEntity.ok(exists);
     }
 
+    /**
+     * Endpoint tìm kiếm người dùng bằng Id.
+     *
+     * @param uid   :   Id người dùng muốn tìm kiếm.
+     * @return      :   Nguời dùng tm kiếm
+     *
+     * Tác giả: Trần Văn An.
+     */
     @Operation(
             summary = "Check if user exists by phone number",
             description = "Check if a user exists with the specified phone number.",
@@ -159,7 +207,13 @@ public class UserController {
         return ResponseEntity.ok(userDTO);
     }
 
-
+    /**
+     * Endpoint lấy tất cả người dùng trong hệ thống.
+     *
+     * @return  :   Danh sách các người dùng trong hệ thống.
+     *
+     * Tác giả: Trần Văn An.
+     */
     @Operation(
             summary = "Retrieve all",
             description = "Retrieve all users.",
