@@ -25,7 +25,14 @@ public class FriendRequestController {
 
     @Autowired
     private FriendRequestService friendRequestService;
-
+    /**
+     * Endpoint hêm yêu cầu kết bạn
+     *
+     * @param addRequest :   Thông tin yêu cầu kết bạn được cung cấp trong phần thân yêu cầu.
+     * @return           :   Phản hồi với thông báo xác nhận khi yêu cầu được thêm thành công.
+     *
+     * Tác giả: Trần Văn An
+     */
     @Operation(
             summary = "Add friend request",
             description = "Add a new friend request by providing the necessary details in the request body.",
@@ -44,6 +51,14 @@ public class FriendRequestController {
                 .body(FriendRequestUtils.FRIEND_REQUEST_ADDED_SUCCESSFULLY);
     }
 
+    /**
+     * Cập nhật trạng thái của yêu cầu kết bạn
+     *
+     * @param updateRequest :   Thông tin yêu cầu cập nhật trạng thái.
+     * @return              :   Phản hồi với thông báo xác nhận khi trạng thái được cập nhật thành công.
+     *
+     * Tác giả: Trần Văn An
+     */
     @Operation(
             summary = "Update status of friend request",
             description = "Update the status of an existing friend request by providing the request ID along with the new status.",
@@ -62,7 +77,14 @@ public class FriendRequestController {
         log.info(FriendRequestUtils.FRIEND_REQUEST_STATUS_UPDATED_SUCCESSFULLY);
         return ResponseEntity.ok(FriendRequestUtils.FRIEND_REQUEST_STATUS_UPDATED_SUCCESSFULLY);
     }
-
+    /**
+     * Xóa yêu cầu kết bạn
+     *
+     * @param friendRequestId :   ID của yêu cầu kết bạn cần xóa.
+     * @return                :   Phản hồi với thông báo xác nhận khi yêu cầu được xóa thành công.
+     *
+     * Tác giả: Trần Văn An
+     */
     @Operation(
             summary = "Delete friend request",
             description = "Delete an existing friend request by providing the request ID.",
@@ -85,6 +107,14 @@ public class FriendRequestController {
     }
 
 
+    /**
+     * Lấy danh sách các yêu cầu kết bạn đang chờ duyệt dựa trên ID của người gửi
+     *
+     * @param senderId :   ID của người gửi.
+     * @return          :   Danh sách các yêu cầu kết bạn đang chờ duyệt.
+     *
+     * Tác giả: Trần Văn An
+     */
     @Operation(
             summary = "Get pending friend requests",
             description = "Get pending friend requests by providing the sender ID.",
@@ -106,7 +136,14 @@ public class FriendRequestController {
         log.info(FriendRequestUtils.RETRIEVED_PENDING_FRIEND_REQUEST_BY_SENDER_ID_MSG, senderId);
         return ResponseEntity.ok(friendRequestDTOs);
     }
-
+    /**
+     * Lấy danh sách các yêu cầu kết bạn đang chờ duyệt dựa trên ID của người nhận
+     *
+     * @param recipientId :   ID của người nhận.
+     * @return            :   Danh sách các yêu cầu kết bạn đang chờ duyệt.
+     *
+     * Tác giả: Trần Văn An
+     */
     @Operation(
             summary = "Get pending friend requests",
             description = "Get pending friend requests by providing the recipient ID.",
@@ -128,7 +165,14 @@ public class FriendRequestController {
         log.info(FriendRequestUtils.RETRIEVED_PENDING_FRIEND_REQUEST_BY_RECIPIENT_ID_MSG, recipientId);
         return ResponseEntity.ok(friendRequestDTOs);
     }
-
+    /**
+     * Lấy yêu cầu kết bạn theo ID
+     *
+     * @param friendRequestId :   ID của yêu cầu kết bạn cần lấy thông tin.
+     * @return                :   Phản hồi với thông tin của yêu cầu kết bạn.
+     *
+     * Tác giả: Trần Văn An
+     */
     @Operation(
             summary = "Get friend request",
             description = "Get a existing friend request by providing the request ID.",
@@ -149,7 +193,14 @@ public class FriendRequestController {
         log.info(FriendRequestUtils.RETRIEVED_FRIEND_REQUEST_BY_ID, friendRequestId);
         return ResponseEntity.ok(friendRequestDTO);
     }
-
+    /**
+     * Lấy danh sách các yêu cầu kết bạn đã được chấp nhận dựa trên ID của người dùng
+     *
+     * @param userId :   ID của người dùng.
+     * @return       :   Danh sách các yêu cầu kết bạn đã được chấp nhận.
+     *
+     * Tác giả: Trần Văn An
+     */
     @Operation(
             summary = "Get accepted friend requests",
             description = "Get accepted friend requests by providing the user ID.",
@@ -171,6 +222,15 @@ public class FriendRequestController {
         return ResponseEntity.ok(friendRequestDTOs);
     }
 
+    /**
+     * Lấy danh sách các yêu cầu kết bạn được đề xuất dựa trên ID của người dùng và số lượng tối đa
+     *
+     * @param userId      :   ID của người dùng.
+     * @param maxQuantity :   Số lượng tối đa của các yêu cầu kết bạn được đề xuất.
+     * @return            :   Danh sách các yêu cầu kết bạn được đề xuất.
+     *
+     * Tác giả: Trần Văn An
+     */
     @Operation(
             summary = "Get recommended friend requests",
             description = "Get recommended friend requests by providing the user ID.",
